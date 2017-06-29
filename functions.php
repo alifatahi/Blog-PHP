@@ -31,7 +31,7 @@ function connect($config){
  */
 function query($query,$binding,$conn){
     $stmt =  $conn->prepare($query);
-    $stmt->execte($binding);
+    $stmt->execute($binding);
     $result = $stmt->fetchAll();
 
     return $result ? $result : false;
