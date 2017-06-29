@@ -3,7 +3,8 @@ namespace Blog\DB;
 
 $config = array(
     'username' => 'root',
-    'password' => '123'
+    'password' => '123',
+    'database' => 'blog'
 );
 
 /*
@@ -11,7 +12,7 @@ $config = array(
  */
 function connect($config){
     try{
-        $conn = new \PDO('mysql:host=localhost;dbname=blog',
+        $conn = new \PDO('mysql:host=localhost;dbname='.$config['database'],
                         $config['username'],
                         $config['password']);
         $conn->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
@@ -40,11 +41,11 @@ function query($query,$binding,$conn){
  * @param $tableName
  * @param $conn
  * @return bool
- * Method to Select Table
+// * Method to Select Table
  */
-function get($tableName,$conn){
+function get($tableName,$conn,$limit = 10){
     try{
-        $result = $conn->query("SELECT * FROM $tableName");
+        $result = $conn->query("SELECT * FROM $tableName LIMIT $limit");
         return($result->rowCount() > 0) ? $result : false;
     }catch (\Exception $e){
         return false;
