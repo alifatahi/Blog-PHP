@@ -61,7 +61,7 @@ function get_by_id($id,$conn){
         'SELECT * FROM posts WHERE id = :id LIMIT 1',
         array('id' => $id),
         $conn);
-    if ($query) $query->fetchAll();
+    if ($query) return $query->fetchAll();
 }
 
 ?>

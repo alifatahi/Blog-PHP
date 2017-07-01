@@ -1,0 +1,4 @@
+AuthName "Admin Only"
+AuthBasic Basic
+AuthUserFile /Users/west/.htpasswd
+require valid-user
