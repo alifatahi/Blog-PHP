@@ -32,9 +32,8 @@ function connect($config){
 function query($query,$binding,$conn){
     $stmt =  $conn->prepare($query);
     $stmt->execute($binding);
-    $result = $stmt->fetchAll();
+    return ($stmt->rowCount() > 0) ? $stmt : false;
 
-    return $result ? $result : false;
 }
 
 /**
@@ -45,20 +44,24 @@ function query($query,$binding,$conn){
  */
 function get($tableName,$conn,$limit = 10){
     try{
-        $result = $conn->query("SELECT * FROM $tableName LIMIT $limit");
+        $result = $conn->query("SELECT * FROM $tableName ORDER BY id DESC LIMIT $limit");
         return($result->rowCount() > 0) ? $result : false;
     }catch (\Exception $e){
         return false;
     }
 }
 
-
+/**
+ * @param $id
+ * @param $conn
+ * @return mixed
+ */
 function get_by_id($id,$conn){
-    return query(
+    $query = query(
         'SELECT * FROM posts WHERE id = :id LIMIT 1',
         array('id' => $id),
         $conn);
-
+    if ($query) $query->fetchAll();
 }
 
 ?>
