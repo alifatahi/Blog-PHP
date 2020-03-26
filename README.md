@@ -1,2 +1,2 @@
 # blog
-Simple Blog With pure PHP 
+Blog With PHP and also Create MVC
